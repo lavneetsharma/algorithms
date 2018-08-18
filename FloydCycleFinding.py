@@ -1,4 +1,3 @@
-#function to detect Cycle in linked list.
 def detectCycle(self):
     slowPointer = self.head
     fastPointer = self.head
