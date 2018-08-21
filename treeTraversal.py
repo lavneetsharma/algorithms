@@ -50,6 +50,36 @@ def printLevelOrder(root):
         if node.right is not None:
             queue.append(node.right)
 
+# function to find diagonal traversal
+def diagonalPrintUtil(root, d, diagonalPrintMap):
+    # Base Case
+    if root is None:
+        return
+
+    # Store all nodes of same line together as a vector
+    try :
+        diagonalPrintMap[d].append(root.data)
+    except KeyError:
+        diagonalPrintMap[d] = [root.data]
+
+    # Increase the vertical distance if left child
+    diagonalPrintUtil(root.left, d+1, diagonalPrintMap)
+
+    # Vertical distance remains same for right child
+    diagonalPrintUtil(root.right, d, diagonalPrintMap)
+
+# diagonal traversal of tree
+def diagonalPrint(root):
+
+    # Create a dict to store diagnoal elements
+    diagonalPrintMap = dict()
+
+    # Find the diagonal traversal
+    diagonalPrintUtil(root, 0, diagonalPrintMap)
+
+    for i in diagonalPrintMap:
+        for j in diagonalPrintMap[i]:
+            print(j)
 
 # Driver Program to test above function
 root = Node(1)
@@ -69,3 +99,6 @@ postorder(root)
 
 print("\n Level Order / breadth first Traversal of binary tree is -")
 printLevelOrder(root)
+
+print("\n Diagonal Traversal of binary tree is -")
+diagonalPrint(root)
